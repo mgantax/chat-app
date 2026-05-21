@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import LoginPage from "./pages/LoginPage";
+import RoomsPage from "./pages/RoomsPage";
+import ChatPage from "./pages/ChatPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -11,7 +13,12 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={
             <ProtectedRoute>
-              <div>Chat App — coming soon</div>
+              <RoomsPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/chat/:roomId" element={
+            <ProtectedRoute>
+              <ChatPage />
             </ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/" />} />

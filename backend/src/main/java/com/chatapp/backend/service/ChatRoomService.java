@@ -1,18 +1,21 @@
 package com.chatapp.backend.service;
 
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
 import com.chatapp.backend.dto.ChatRoomRequest;
 import com.chatapp.backend.dto.ChatRoomResponse;
 import com.chatapp.backend.entity.ChatRoom;
 import com.chatapp.backend.entity.User;
 import com.chatapp.backend.repository.ChatRoomRepository;
 import com.chatapp.backend.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +35,7 @@ public class ChatRoomService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public ChatRoomResponse createRoom(ChatRoomRequest request) {
         String username = SecurityContextHolder.getContext()
                 .getAuthentication().getName();
@@ -47,6 +51,7 @@ public class ChatRoomService {
         return toResponse(saved);
     }
 
+   @Transactional
     public ChatRoomResponse joinRoom(UUID roomId) {
         String username = SecurityContextHolder.getContext()
                 .getAuthentication().getName();
