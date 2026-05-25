@@ -6,10 +6,17 @@ import MessageList from "../components/MessageList";
 import MessageInput from "../components/MessageInput";
 import SuggestionChips from "../components/SuggestionChips";
 
+interface Message {
+  id: string;
+  content: string;
+  senderUsername: string;
+  createdAt: string;
+}
+
 export default function ChatPage() {
   const { roomId } = useParams<{ roomId: string }>();
   const { token, username } = useAuth();
-  const [messages, setMessages] = useState<unknown[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
@@ -17,7 +24,7 @@ export default function ChatPage() {
     roomId: roomId!,
     token: token!,
     onMessage: (message) => {
-      setMessages((prev) => [...prev, message]);
+      setMessages((prev) => [...prev, message as Message]);
     },
   });
 
@@ -54,7 +61,7 @@ export default function ChatPage() {
         },
         body: JSON.stringify({
           lastMessage: messageContent,
-          context: messages.map((m) => m.content).join("\n"),
+          context: messages.map((m: Message) => m.content).join("\n"),
         }),
       });
       const data = await response.json();
