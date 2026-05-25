@@ -35,4 +35,9 @@ public class ChatRoomController {
     public ResponseEntity<ChatRoomResponse> joinRoom(@PathVariable UUID roomId) {
         return ResponseEntity.ok(chatRoomService.joinRoom(roomId));
     }
+
+    @GetMapping("/all")
+public ResponseEntity<List<ChatRoomResponse>> getAllRooms() {
+    return ResponseEntity.ok(chatRoomService.getAllRooms());
+}
 }

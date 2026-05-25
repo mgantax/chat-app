@@ -51,6 +51,14 @@ public class ChatRoomService {
         return toResponse(saved);
     }
 
+    @Transactional
+    public List<ChatRoomResponse> getAllRooms() {
+    return chatRoomRepository.findAll()
+            .stream()
+            .map(this::toResponse)
+            .collect(Collectors.toList());
+}
+
    @Transactional
     public ChatRoomResponse joinRoom(UUID roomId) {
         String username = SecurityContextHolder.getContext()

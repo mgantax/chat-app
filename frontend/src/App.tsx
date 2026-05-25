@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RoomsPage from "./pages/RoomsPage";
 import ChatPage from "./pages/ChatPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
